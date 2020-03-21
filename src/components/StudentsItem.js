@@ -41,10 +41,10 @@ const StudentsItem = ({ student }) => {
       let sum = 0;
       for (let i = 0; i < numbers.length; i++) {
         console.log(i);
-        sum = sum + numbers[i];
+        sum = sum + parseInt(numbers[i]);
         console.log(sum);
-        return sum / numbers.length;
       }
+      return sum / numbers.length;
     }
   }
   const [list,] = useState(grades);
