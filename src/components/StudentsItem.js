@@ -33,6 +33,7 @@ const StudentsItemBlock = styled.div`
 `;
 const StudentsItem = ({ student }) => {
   const { pic, firstName, lastName, email, company, skill, grades } = student;
+  const [list,] = useState(grades);
 
   const getAverage = numbers => {
     if (numbers.length === 0) {
@@ -40,16 +41,13 @@ const StudentsItem = ({ student }) => {
     } else {
       let sum = 0;
       for (let i = 0; i < numbers.length; i++) {
-        console.log(i);
         sum = sum + parseInt(numbers[i]);
-        console.log(sum);
       }
-      return sum / numbers.length;
+      return (sum / numbers.length);
     }
   }
-  const [list,] = useState(grades);
+  const getTests = list.map((test, index) => <dl key={index}>test{index + 1}: {test}%</dl>);
 
-  console.log(list);
 
   return (
     <StudentsItemBlock>
@@ -64,7 +62,8 @@ const StudentsItem = ({ student }) => {
           Email: {email}<br />
           Company: {company}<br />
           Skill:{skill}<br />
-          Average:{getAverage(list)}<br />
+          Average:{getAverage(list)}%<br />
+          {getTests}<br />
         </h2>
       </div>
     </StudentsItemBlock>
