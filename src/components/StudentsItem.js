@@ -34,6 +34,7 @@ const StudentsItemBlock = styled.div`
 const StudentsItem = ({ student }) => {
   const { pic, firstName, lastName, email, company, skill, grades } = student;
   const [list,] = useState(grades);
+  const [showTests, setShowTests] = useState(false);
 
   const getAverage = numbers => {
     if (numbers.length === 0) {
@@ -46,11 +47,17 @@ const StudentsItem = ({ student }) => {
       return (sum / numbers.length);
     }
   }
-  const getTests = list.map((test, index) => <dl key={index}>test{index + 1}: {test}%</dl>);
+  const getTests = list.map((test, index) =>
+    <dl key={index}>test{index + 1}: {test}%</dl>);
 
 
   return (
     <StudentsItemBlock>
+      <button onClick={() => {
+        setShowTests(!showTests);
+      }}>
+        {showTests ? 'hide' : 'show'}
+      </button>
       {pic && (
         <div className="thumnail">
           <img src={pic} alt="thumbnail" />
@@ -63,7 +70,7 @@ const StudentsItem = ({ student }) => {
           Company: {company}<br />
           Skill:{skill}<br />
           Average:{getAverage(list)}%<br />
-          {getTests}<br />
+          {showTests && getTests}<br />
         </h2>
       </div>
     </StudentsItemBlock>
