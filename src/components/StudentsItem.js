@@ -33,8 +33,20 @@ const StudentsItemBlock = styled.div`
 `;
 const StudentsItem = ({ student }) => {
   const { pic, firstName, lastName, email, company, skill, grades } = student;
-  const [list,] = useState(grades);
+  const [list, setList] = useState(grades);
+
   const [showTests, setShowTests] = useState(false);
+  const [inputTag, setInputTag] = useState('');
+  const [nextId, setNextId] = useState(9);
+
+  const onChnage = e => setInputTag(e.target.value);
+
+  const onClick = () => {
+    const addTags = list
+  }
+
+
+
 
   const getAverage = numbers => {
     if (numbers.length === 0) {
@@ -48,32 +60,45 @@ const StudentsItem = ({ student }) => {
     }
   }
   const getTests = list.map((test, index) =>
-    <dl key={index}>test{index + 1}: {test}%</dl>);
+    <div>
+      <dl key={index}>test{index + 1}: {test}%</dl>
+    </div>);
 
-
+  const addTags = () => {
+    return (
+      <input
+        type="text"
+        name="tag"
+        placeholder="Add tag"
+      />
+    )
+  }
   return (
-    <StudentsItemBlock>
-      <button onClick={() => {
-        setShowTests(!showTests);
-      }}>
-        {showTests ? 'hide' : 'show'}
-      </button>
-      {pic && (
-        <div className="thumnail">
-          <img src={pic} alt="thumbnail" />
+    <div>
+      <StudentsItemBlock>
+        <button onClick={() => {
+          setShowTests(!showTests);
+        }}>
+          {showTests ? '-' : '+'}
+        </button>
+        {pic && (
+          <div className="thumnail">
+            <img src={pic} alt="thumbnail" />
+          </div>
+        )}
+        <div className="contents">
+          <h2>
+            {firstName + ' ' + lastName}<br />
+            Email: {email}<br />
+            Company: {company}<br />
+            Skill:{skill}<br />
+            Average:{getAverage(list)}%<br />
+            {showTests && getTests}<br />
+            {showTests && <addTags />}<br />
+          </h2>
         </div>
-      )}
-      <div className="contents">
-        <h2>
-          {firstName + ' ' + lastName}<br />
-          Email: {email}<br />
-          Company: {company}<br />
-          Skill:{skill}<br />
-          Average:{getAverage(list)}%<br />
-          {showTests && getTests}<br />
-        </h2>
-      </div>
-    </StudentsItemBlock>
+      </StudentsItemBlock>
+    </div>
   );
 };
 
